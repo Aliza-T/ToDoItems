@@ -1,0 +1,31 @@
+﻿@using TaskClassWork.Data;
+
+
+<div class="container" style="margin-top: 40px">
+    <a href="/Home/AddToDoItem" class="btn btn-success">ADD TO DO ITEM</a>
+   <br/>
+    <br/>
+    <table class="table table-bordered table-hover table-striped">
+        <tr>
+            <th>Title</th>
+            <th>Category Name</th>
+            <th>Due Date</th>
+            <th>Completed</th>
+        </tr>
+        @foreach (ToDoItems t in Model)
+        {
+            <tr class="@(t.DueDate <= DateTime.Now ? "text-danger" : "" )"> 
+
+                <td>@t.Title</td>
+                <td>@t.CategoryName</td>
+                <td>@t.DueDate.ToLongDateString()</td>
+                <td>
+                    <form action="/Home/MarkAsCompleted" method="post">
+                        <button class="btn btn-primary">Mark Completed</button>
+                        <input type="hidden" value="@t.Id" name="Id" />
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
